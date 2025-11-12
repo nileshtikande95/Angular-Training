@@ -1,0 +1,40 @@
+<div *ngIf="authService.getUser()">
+       Welcome <b>{{authService.getUser() |uppercase}}</b>
+        <a href (click)="logout()">Log out</a>
+    </div>
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+   <button class="btn btn-outline-primary btn-sm position-absolute" style="top: 20px; right: 30px; z-index: 1000;"
+            (click)="goHome()">
+    <i class="bi bi-house-door-fill me-1"></i> Home
+  </button>
+  <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+    <h2 class="text-center mb-4 text-primary fw-bold">Login</h2>
+
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+      <!-- Username -->
+      <div class="mb-3">
+        <label for="username" class="form-label fw-semibold">UserName</label>
+        <input type="text" id="username" name="username" class="form-control" placeholder="Enter username" required
+          [(ngModel)]="username" #userNameModel="ngModel"/>
+           <div *ngIf="userNameModel.invalid && userNameModel.touched" class="text-danger small mt-1">
+          UserName is required.
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        <label for="password" class="form-label fw-semibold">Password</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" required
+          [(ngModel)]="password" #passwordModel="ngModel"/>
+          <div *ngIf="passwordModel.invalid && passwordModel.touched" class="text-danger small mt-1">
+          Password is required.
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Login</button>
+
+      <div *ngIf="message" class="text-danger text-center mt-3">{{ message }}</div>
+    </form>
+    
+  </div>
+</div>
